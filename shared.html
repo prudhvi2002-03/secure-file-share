@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secure Shared Files</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f7f9fb;
+    }
+    .file-preview {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="file-preview">
+    <h2>🔐 Secure Shared Files</h2>
+    <div id="file-list">Loading file details...</div>
+  </div>
+
+  <script>
+    const data = JSON.parse(sessionStorage.getItem("sharedFiles"));
+    const list = document.getElementById("file-list");
+
+    if (data && data.files.length > 0) {
+      list.innerHTML = data.files.map(file =>
+        `<p>📄 <strong>${file.name}</strong> (${(file.size / 1024).toFixed(2)} KB)</p>`
+      ).join('');
+    } else {
+      list.innerHTML = "<p>No files found or session expired.</p>";
+    }
+  </script>
+</body>
+</html>
